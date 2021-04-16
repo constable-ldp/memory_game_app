@@ -1,0 +1,27 @@
+﻿Memory Card Game
+
+
+The aim of this project is to create an interactive memory card game, whereby the user is presented with a selection of cards that are flipped over and so the image on the card is hidden. By selecting cards, the user reveals the image on the other side, and each turn they will select a pair of cards. If the images on both cards match, then that pair is taken out of the game. Once all of the pairs have been selected, the game is over.
+
+
+MVP
+
+
+* Create a visual grid of cards, which initially appear hidden to the user - there should be two of each card present at all times.
+* Allow the user to select pairs of cards, revealing the images on them, if the pair is a match, they should remain revealed.
+* The game should reach an end point when all pairs have been selected, and the user should have an option to reset the grid, essentially starting the game again - this should shuffle the cards in random order, so that the layout of the cards is different for each game.
+
+
+
+
+Extensions
+
+
+* Each game should be timed, and the number of moves made to complete the game recorded.
+* Add a second player to a game, and determine who is the winner.
+*  Track high scores, saving player name, how many turns they took to finish, and how long.
+* Add animation to gameplay, for flipping cards.
+* Save player profiles, allowing a use to either select a previous profile when they play, or input a new name.
+* Allow user to select a different set of images or theme for the cards.
+* Select the number of cards to be used for a game
+* Add other games that can also be played
