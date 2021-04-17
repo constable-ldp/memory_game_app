@@ -1,15 +1,18 @@
 <template>
   <div id="app">
+    <cards />
   </div>
 </template>
 
 <script>
 
+import Cards from './components/Cards.vue';
+
 
 export default {
   name: 'App',
   components: {
-
+    'cards': Cards
   }
 }
 </script>
