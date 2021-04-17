@@ -1,4 +1,5 @@
 use memory_game;
+
 db.dropDatabase();
 
 db.players.insertMany([
@@ -22,7 +23,4 @@ db.players.insertMany([
         "time": 0,
         "moves": 9
       }
-      
-
-
 ]);
