@@ -17,7 +17,8 @@ export default {
   },
   data() {
     return {
-      players: []
+      players: [],
+      selectedPlayer: null
     };
   },
 
@@ -25,8 +26,10 @@ export default {
     this.fetchPlayers();
 
     eventBus.$on('submit-player', (player) => {
+      this.selectedPlayer = player
       PlayerService.addPlayer(player)
-      .then(banana => this.players.push(banana));
+      .then(banana => this.players.push(banana))
+     
     });
   },
 

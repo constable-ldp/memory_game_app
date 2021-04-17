@@ -1,6 +1,6 @@
 <template>
    
-        <option value="">{{player.name}}</option>
+        <option value="player.name">{{player.name}}</option>
     
 </template>
 
