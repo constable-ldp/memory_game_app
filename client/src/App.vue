@@ -1,19 +1,19 @@
 <template>
   <div id="app">
 
-    <player :players="players"/>
+    <player-list :players="players"/>
   </div>
 </template>
 
 <script>
-import Player from '@/components/Player.vue';
+import PlayerList from '@/components/PlayerList.vue';
 import PlayerService from '@/services/PlayerService.js';
 import {eventBus} from '@/main.js';
 
 export default {
   name: 'App',
   components: {
-    'player': Player
+    'player-list': PlayerList
   },
   data() {
     return {
