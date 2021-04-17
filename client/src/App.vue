@@ -2,6 +2,7 @@
   <div id="app">
 
     <player-list :players="players"/>
+    <cards />
   </div>
 </template>
 
@@ -10,10 +11,14 @@ import PlayerList from '@/components/PlayerList.vue';
 import PlayerService from '@/services/PlayerService.js';
 import {eventBus} from '@/main.js';
 
+import Cards from './components/Cards.vue';
+
+
 export default {
   name: 'App',
   components: {
-    'player-list': PlayerList
+    'player-list': PlayerList,
+    'cards': Cards
   },
   data() {
     return {
@@ -38,6 +43,7 @@ export default {
       PlayerService.getPlayers()
       .then(players => this.players = players);
     }
+    
   }
 }
 </script>
