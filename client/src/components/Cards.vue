@@ -1,7 +1,7 @@
 <template>
   <section>
       <h2>Cards</h2>
-      <div  class="grid">
+      <div class="grid">
         <div v-for="(card, index) in this.cards" :key="index">
           <img class="non-flipped" src="../assets/default.png"> 
           <img class="flipped" :src="require(`@/assets/imgs/${card.img}`)">
@@ -13,6 +13,7 @@
 <script>
 
 // import CardService from '../services/CardService.js';
+import {eventBus} from '@/main.js'
 
 export default {
   name: 'cards',
@@ -20,9 +21,8 @@ export default {
     return {
       cards: [],
       images: [
-        'alex.png', 'dani.png', 'jael.png', 
-        'kamil.png', 'pete.png', 'piotr.png',
-        'stuart.png', 'tim.png'
+        'alex.png', 'dani.png', 'jael.png', 'kamil.png', 
+        'pete.png', 'piotr.png', 'stuart.png', 'tim.png'
         ]
     }
   },
@@ -34,6 +34,7 @@ export default {
     // this.fetchImages(),
 
     this.assignIds()
+    eventBus.$emit('fetch-cards', this.cards)
   },
   methods: {
     // fetchImages: function(){
@@ -93,7 +94,7 @@ export default {
   width: 80px;
 }
 
-.non-flipped {
+.flipped {
   -webkit-transform: rotateY(-180deg);
   -moz-transform: rotateY(-180deg);
   -o-transform: rotateY(-180deg);
