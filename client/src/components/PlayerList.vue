@@ -1,25 +1,28 @@
 <template>
   <section>
       <h2>Player</h2>
-      <b-button @click="showModal">Select Player</b-button>
-      <b-modal ref="player-modal">
-        <div v-if="players">
-            <label for="players">Select Player: </label>
-            <select name="players" id="players">
-            
-              <player v-for="(player, index) in players" :key="index" :player="player"/>
+      <h3 v-if="selectedPlayer">{{selectedPlayer.name}}</h3>
+      <div v-if="!selectedPlayer">
+        <b-button @click="showModal">Select Player</b-button>
+        <b-modal ref="player-modal">
+          <div v-if="players">
+              <label for="players">Select Player: </label>
+              <select @change="selectPlayer(event)" name="players" id="players">
               
-            </select>
-          </div>
-        <form v-on:submit.prevent="handleSubmit">
-          
-          <h1>New Player</h1>
-            <label for="name">Player Name:</label>
-            <input type="text" id="name" name="name" v-model="name" required/>
+                <player v-for="(player, index) in players" :key="index" :player="player"/>
+                
+              </select>
+            </div>
+          <form v-on:submit.prevent="handleSubmit">
+            
+            <h3>New Player</h3>
+              <label for="name">Player Name:</label>
+              <input type="text" id="name" name="name" v-model="name" required/>
 
-            <input type="submit" name="submit" value="Save" />
-        </form>
-      </b-modal>
+              <input type="submit" name="submit" value="Save" />
+          </form>
+        </b-modal>
+      </div>
   </section>
 </template>
 
@@ -33,7 +36,8 @@ export default {
   components: {
     'player': Player
   },
-  props: ['players'],
+
+  props: ['players', 'selected-player'],
 
   data() {
     return {
@@ -42,14 +46,18 @@ export default {
   },
   methods: {
     handleSubmit() {
-      eventBus.$emit('submit-player', this.$data);
-      this.name = '';
-    
+      eventBus.$emit('submit-player', this.$data)
+      .then(name = '')
+    },
+
+    selectPlayer(event) {
+      eventBus.$emit('submit-player', event)
     },
 
     showModal() {
       this.$refs['player-modal'].show()
     }
+
   }
 };
 </script>

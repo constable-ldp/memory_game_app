@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <player-list :players="players"/>
+    <player-list :players="players" :selected-player="selectedPlayer"/>
   </div>
 </template>
 
@@ -31,6 +31,7 @@ export default {
       .then(banana => this.players.push(banana))
      
     });
+
   },
 
   methods: {
