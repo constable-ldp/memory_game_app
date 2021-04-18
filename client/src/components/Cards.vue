@@ -3,8 +3,12 @@
       <h2>Cards</h2>
       <div class="grid">
         <div v-for="(card, index) in this.cards" :key="index">
-          <img class="non-flipped" src="../assets/default.png"> 
-          <img class="flipped" :src="require(`@/assets/imgs/${card.img}`)">
+          <button :class="{ 'flipped': card.flipped }" @click="flip(card)">
+            <div class="on-top">
+              <img class="pic" :src="require(`@/assets/imgs/${card.img}`)">
+              <img class="codeclan" src="../assets/default.png">
+            </div>
+          </button>
         </div>
       </div>
   </section>
@@ -12,7 +16,6 @@
 
 <script>
 
-// import CardService from '../services/CardService.js';
 import {eventBus} from '@/main.js'
 
 export default {
@@ -49,6 +52,7 @@ export default {
           'img': this.images[i],
           'matching_id': i+this.images.length,
           'matched': false,
+          'flipped': false
         }
         this.cards.push(cardObj)
       }
@@ -58,10 +62,20 @@ export default {
           'img': this.images[j-  this.images.length],
           'matching_id': j-this.images.length,
           'matched': false,
+          'flipped': false
         }
         this.cards.push(cardObj)
       }
     },
+
+    flip: function(card) {
+      if (card.flipped) {
+        card.flipped = false
+      }
+      else {
+        card.flipped = true
+      }
+    }
   },
 }
 
@@ -69,38 +83,72 @@ export default {
 
 <style>
 
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline:none;
+}
+
 .grid {
   display: grid;
   grid: repeat(4, 160px) / auto-flow 115px;
   justify-content: center;
 }
 
-.non-flipped, .flipped {
+.on-top{
+  position:relative;
+
+}
+
+.codeclan, .pic {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transition: 0.6s;
+  -webkit-transition: 0.8s;
   -webkit-transform-style: preserve-3d;
-  -moz-transition: 0.6s;
+  -moz-transition: 0.8s;
   -moz-transform-style: preserve-3d;
-  -o-transition: 0.6s;
+  -o-transition: 0.8s;
   -o-transform-style: preserve-3d;
-  -ms-transition: 0.6s;
+  -ms-transition: 0.8s;
   -ms-transform-style: preserve-3d;
-  transition: 0.6s;
+  transition: 0.8s;
   transform-style: preserve-3d;
   height: 140px;
   width: 80px;
+  position:absolute;
+  top:0;
+  left:0;
 }
 
-.flipped {
+.pic {
   -webkit-transform: rotateY(-180deg);
   -moz-transform: rotateY(-180deg);
   -o-transform: rotateY(-180deg);
   -ms-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
-  position: absolute;
+  position: absolute; 
+  
 }
+
+.flipped .pic {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+
+.flipped .codeclan {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  }
 
 </style>

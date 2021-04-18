@@ -1,10 +1,11 @@
 <template>
-  <section>
-      <h2>Grid</h2>
-  </section>
+  <div>
+  </div>
 </template>
 
 <script>
+
+
 export default {
 
 }
