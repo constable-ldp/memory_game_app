@@ -3,7 +3,7 @@
 
     <player-selected :selected-player="selectedPlayer"/>
     <player-list :players="players" :selected-player="selectedPlayer"/>
-    <player-new/>
+    <player-new :players="players"/>
   </div>
 </template>
 

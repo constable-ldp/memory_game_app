@@ -9,6 +9,9 @@
               <input ref="close" type="submit" name="submit" value="Save" @click="closeModal"/>
           </form>
           </b-modal>
+          <b-modal ref="error-modal">
+            <h2>Sorry name already taken!</h2>
+          </b-modal>
   </section>
 </template>
 
@@ -17,6 +20,7 @@ import {eventBus} from '@/main.js'
 
 export default {
   name: 'player-new',
+  props: ['players'],
   data() {
     return {
       player: {
@@ -29,7 +33,17 @@ export default {
 
   methods: {
     handleSubmit() {
-      eventBus.$emit('submit-player', this.$data)
+    this.players.forEach(playerList => {
+      if (playerList.name == this.player.name) {
+        this.$refs['error-modal'].show();
+        return;
+      } else {
+        eventBus.$emit('submit-player', this.$data)
+      }  
+    });
+
+      
+    // }
     },
 
     showModal() {
