@@ -152,9 +152,7 @@ export default {
   display: grid;
   grid: repeat(4, 140px) / auto-flow 140px;
   /* 20vw */
-  /* justify-content: center; */
-  /* grid-area: photo; */
-
+  justify-content: center;
 }
 
 .grid-card {
