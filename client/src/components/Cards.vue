@@ -2,7 +2,7 @@
   <section>
       <h2>Cards</h2>
       <div class="grid">
-        <div v-for="(card, index) in this.cards" :key="index">
+        <div class="grid-card" v-for="(card, index) in this.cards" :key="index">
           <button :disabled="card.flipped || waiting" :class="{ 'flipped': card.flipped }" @click="move(card)">
             <div class="on-top">
               <img class="pic" :src="require(`@/assets/imgs/${card.img}`)">
@@ -15,8 +15,6 @@
 </template>
 
 <script>
-
-import {eventBus} from '@/main.js'
 
 export default {
   name: 'cards',
@@ -39,7 +37,7 @@ export default {
     // this.fetchImages(),
 
     this.assignIds()
-    eventBus.$emit('fetch-cards', this.cards)
+    this.shuffle(this.cards)
   },
 
   methods: {
@@ -108,6 +106,13 @@ export default {
       }   
     },
 
+    shuffle: function (cards) {
+      for (let i = cards.length - 1; i > 0; i--) {
+        const randomCard = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[randomCard]] = [cards[randomCard], cards[i]];
+    }
+}
+
 
 
     // var second = 0, minute = 0; hour = 0;
@@ -133,24 +138,36 @@ export default {
 
 <style>
 
-button {
+.grid-card button {
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
     cursor: pointer;
     overflow: hidden;
-    outline:none;
+    outline: none;
+    margin: 0px auto;
 }
 
 .grid {
   display: grid;
-  grid: repeat(4, 160px) / auto-flow 115px;
+  grid: repeat(4, 140px) / auto-flow 140px;
+  /* 20vw */
   /* justify-content: center; */
+  /* grid-area: photo; */
+
+}
+
+.grid-card {
+  align-self: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .on-top{
   position: relative;
-
+  height: 100px;
+  width: 100px;
 }
 
 .codeclan, .pic {
