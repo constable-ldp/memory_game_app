@@ -24,20 +24,30 @@ export default {
 
   mounted() {
     this.fetchPlayers();
-
-    eventBus.$on('submit-player', (player) => {
-      this.selectedPlayer = player
-      PlayerService.addPlayer(player)
-      .then(banana => this.players.push(banana))
-     
-    });
-
+    this.submitPlayer();
+    this.selectPlayer();
   },
 
   methods: {
+
     fetchPlayers() {
       PlayerService.getPlayers()
       .then(players => this.players = players);
+    },
+
+    submitPlayer() {
+      eventBus.$on('submit-player', (player) => {
+      this.selectedPlayer = player
+      PlayerService.addPlayer(player)
+      .then(banana => this.players.push(banana))
+    });
+
+    },
+
+    selectPlayer() {
+      eventBus.$on('select-player', (player) => {
+        this.selectedPlayer = player
+      });
     }
   }
 }

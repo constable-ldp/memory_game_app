@@ -2,12 +2,11 @@
   <section>
       <h2>Player</h2>
       <h3 v-if="selectedPlayer">{{selectedPlayer.name}}</h3>
-      <div v-if="!selectedPlayer">
         <b-button @click="showModal">Select Player</b-button>
         <b-modal ref="player-modal">
           <div v-if="players">
               <label for="players">Select Player: </label>
-              <select @change="selectPlayer(event)" name="players" id="players">
+              <select @change="selectPlayer" v-model="name" name="players" id="players">
               
                 <player v-for="(player, index) in players" :key="index" :player="player"/>
                 
@@ -18,11 +17,10 @@
             <h3>New Player</h3>
               <label for="name">Player Name:</label>
               <input type="text" id="name" name="name" v-model="name" required/>
-
-              <input type="submit" name="submit" value="Save" />
+<!-- v-if="name !== player.name"  -->
+              <input ref="close" type="submit" name="submit" value="Save" @click="closeModal"/>
           </form>
         </b-modal>
-      </div>
   </section>
 </template>
 
@@ -41,7 +39,9 @@ export default {
 
   data() {
     return {
-      name: ''
+      name: '',
+      time: 0,
+      moves: 0
     };
   },
   methods: {
@@ -50,12 +50,17 @@ export default {
       .then(name = '')
     },
 
-    selectPlayer(event) {
-      eventBus.$emit('submit-player', event)
+    selectPlayer() {
+      eventBus.$emit('select-player', this.$data)
+      .then(name = '')
     },
 
     showModal() {
       this.$refs['player-modal'].show()
+    },
+
+    closeModal() {
+      this.$refs['player-modal'].hide()
     }
 
   }
