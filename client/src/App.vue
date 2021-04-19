@@ -33,7 +33,6 @@ export default {
 
 
   mounted() {
-    
     this.fetchPlayers();
     this.submitPlayer();
     this.selectPlayer();
@@ -46,22 +45,36 @@ export default {
       .then(players => this.players = players);
     },
 
-    submitPlayer() {
-      eventBus.$on('submit-player', (player) => {
-      this.selectedPlayer = player
-      PlayerService.addPlayer(player)
-      .then(banana => this.players.push(banana))
-    });
-
-    },
-
     selectPlayer() {
       eventBus.$on('select-player', (player) => {
         this.selectedPlayer = player
-      });
-    }
+      })
+    },
+
+    submitPlayer() {
+      eventBus.$on('submit-player', (payload) => {
+        let result
+        this.players.forEach(player => {
+          if (player.name === payload.name) {
+            result = true
+          }
+          });
+        if (result === true) {
+        eventBus.$emit('player-error', true)
+        return;
+          } else {
+            this.selectedPlayer = payload;
+            PlayerService.addPlayer(payload)
+            .then(banana => this.players.push(banana))
+            eventBus.$emit('player-error', false)
+        }
+      })
+    
   }
+  
 }
+}
+
 </script>
 
 <style>

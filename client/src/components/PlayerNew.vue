@@ -5,7 +5,7 @@
           <form v-on:submit.prevent="handleSubmit">
             <h3>New Player</h3>
               <label for="name">Player Name:</label>
-              <input type="text" id="name" name="name" v-model="player.name" required/>
+              <input type="text" id="name" name="name" v-model="name" required/>
               <input ref="close" type="submit" name="submit" value="Save" @click="closeModal"/>
           </form>
           </b-modal>
@@ -23,27 +23,26 @@ export default {
   props: ['players'],
   data() {
     return {
-      player: {
-      name: '', 
-      time: 0,
-      moves: 0
-      }      
+      name: ''
     };
   },
 
-  methods: {
-    handleSubmit() {
-    this.players.forEach(playerList => {
-      if (playerList.name == this.player.name) {
-        this.$refs['error-modal'].show();
-        return;
-      } else {
-        eventBus.$emit('submit-player', this.$data)
-      }  
-    });
+  mounted() {
+    eventBus.$on('player-error', (result) => {
+         if (result === true){
+           this.errorModal()
+         }
+       })
+  },
 
-      
-    // }
+  methods: {
+     handleSubmit() {
+      eventBus.$emit('submit-player', this.$data)
+      eventBus.$on('player-error', (result) => {
+         if (result === true){
+           this.errorModal()
+         }
+       })
     },
 
     showModal() {
@@ -52,6 +51,10 @@ export default {
 
     closeModal() {
       this.$refs['player-modal'].hide()
+    },
+
+    errorModal(){
+    this.$refs['error-modal'].show()
     }
   }
 
