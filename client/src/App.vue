@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <stats/>
     <cards/>
     <player-selected :selected-player="selectedPlayer"/>
     <player-list :players="players" :selected-player="selectedPlayer"/>
@@ -13,7 +14,9 @@ import PlayerService from '@/services/PlayerService.js';
 import PlayerSelected from '@/components/PlayerSelected.vue';
 import PlayerNew from '@/components/PlayerNew.vue';
 import Cards from './components/Cards.vue';
+import Stats from './components/Stats.vue';
 import {eventBus} from '@/main.js';
+
 
 
 export default {
@@ -22,7 +25,8 @@ export default {
     'player-list': PlayerList,
     'cards': Cards,
     'player-selected': PlayerSelected,
-    'player-new': PlayerNew
+    'player-new': PlayerNew,
+    'stats': Stats
   },
   data() {
     return {
