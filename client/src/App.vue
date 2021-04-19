@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <stats/>
-    <cards/>
+    <stats :time="time" :moves="moves"/>
+    <assign-cards/>
     <player-selected :selected-player="selectedPlayer"/>
     <player-list :players="players" :selected-player="selectedPlayer"/>
     <player-new :players="players"/>
@@ -13,7 +13,7 @@ import PlayerList from '@/components/PlayerList.vue';
 import PlayerService from '@/services/PlayerService.js';
 import PlayerSelected from '@/components/PlayerSelected.vue';
 import PlayerNew from '@/components/PlayerNew.vue';
-import Cards from './components/Cards.vue';
+import AssignCards from './components/AssignCards.vue';
 import Stats from './components/Stats.vue';
 import {eventBus} from '@/main.js';
 
@@ -23,15 +23,21 @@ export default {
   name: 'App',
   components: {
     'player-list': PlayerList,
-    'cards': Cards,
     'player-selected': PlayerSelected,
     'player-new': PlayerNew,
-    'stats': Stats
+    'stats': Stats,
+    'assign-cards': AssignCards
   },
   data() {
     return {
       players: [],
-      selectedPlayer: null
+      selectedPlayer: null,
+      time: {
+        seonds:0,
+        minutes:0,
+        hours:0
+        },
+      moves: 0
     };
   },
 
@@ -40,6 +46,8 @@ export default {
     this.fetchPlayers();
     this.submitPlayer();
     this.selectPlayer();
+    this.getTime();
+    this.getMoves();
   },
 
   methods: {
@@ -74,6 +82,12 @@ export default {
         }
       })
     
+  },
+  getTime() {
+    eventBus.$on('time', (payload) => this.time = payload)
+  },
+  getMoves() {
+    eventBus.$on('moves', (payload) => this.moves = payload)
   }
   
 }

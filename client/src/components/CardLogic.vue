@@ -1,74 +1,54 @@
 <template>
   <section>
-      <h2>Cards</h2>
-      <div class="grid">
-        <div class="grid-card" v-for="(card, index) in this.cards" :key="index">
-          <button :disabled="card.flipped || waiting" :class="{ 'flipped': card.flipped }" @click="move(card)">
-            <div class="on-top">
-              <img class="pic" :src="require(`@/assets/imgs/${card.img}`)">
-              <img class="codeclan" src="../assets/default.png">
-            </div>
-          </button>
-        </div>
+    <b-icon @click="resetGame" class="reset" icon="arrow-clockwise" font-scale="3"></b-icon>
+    <div class="grid">
+      <div class="grid-card" v-for="(card, index) in this.cards" :key="index">
+        <button :disabled="card.flipped || waiting" :class="{ 'flipped': card.flipped }" @click="move(card)">
+          <div class="on-top">
+            <img class="pic" :src="require(`@/assets/imgs/${card.img}`)">
+            <img class="codeclan" src="../assets/default.png">
+          </div>
+        </button>
       </div>
+    </div>
   </section>
 </template>
 
 <script>
 
+import Stats from './Stats.vue';
+import AssignCards from './AssignCards.vue';
+import {eventBus} from '@/main.js';
+
 export default {
-  name: 'cards',
+  name: 'card-logic',
+  components: { 
+    'stats': Stats,
+    'assign-cards': AssignCards 
+    },
+  props: ['assignedCards'],
   data() {
     return {
-      cards: [],
-      images: [
-        'alex.png', 'dani.png', 'jael.png', 'kamil.png', 
-        'pete.png', 'piotr.png', 'stuart.png', 'tim.png'
-        ],
+      cards: this.$props.assignedCards,
       selectedCard: null,
-      waiting: false
+      waiting: false,
+      time: {
+        seconds: 0,
+        minutes: 0,
+        hours: 0,
+        },
+      timeInterval: null,
+      moves: 0
     }
   },
-  mounted() {
-
-    // Extention: 
-    // fetchImages will get image from api and replace the data in images.  If greater than 16 chosen or api choosen:
-    // Use a if statment to replace the data in images. And a v-if to change the for loop in the html
-    // this.fetchImages(),
-
-    this.assignIds()
+   mounted() {
     this.shuffle(this.cards)
+    eventBus.$emit('time', this.time)
+    eventBus.$emit('moves', this.moves)
+
   },
 
   methods: {
-    // fetchImages: function(){
-    //   CardService.getImages()
-    //   .then(images => this.images = images.img);
-    // },
-
-    assignIds: function() {
-      for (let i=0; i < this.images.length; i++) {
-        let cardObj = {
-          'id': i,
-          'img': this.images[i],
-          'matchingId': i+this.images.length,
-          'matched': false,
-          'flipped': false
-        }
-        this.cards.push(cardObj)
-      }
-        for (let j=this.images.length; j < this.images.length*2; j++) {
-        let cardObj = {
-          'id': j,
-          'img': this.images[j-  this.images.length],
-          'matchingId': j-this.images.length,
-          'matched': false,
-          'flipped': false
-        }
-        this.cards.push(cardObj)
-      }
-    },
-
     flip: function(card) {
       if (card.flipped) {
         card.flipped = false
@@ -82,6 +62,7 @@ export default {
       this.flip(card)
       if (!this.selectedCard){
         this.selectedCard = card
+        this.moveCounter()
       }
       else {
         if (card.matchingId === this.selectedCard.id) {
@@ -103,6 +84,7 @@ export default {
             })
         }
         this.selectedCard = null
+        this.moveCounter()
       }   
     },
 
@@ -110,28 +92,48 @@ export default {
       for (let i = cards.length - 1; i > 0; i--) {
         const randomCard = Math.floor(Math.random() * (i + 1));
         [cards[i], cards[randomCard]] = [cards[randomCard], cards[i]];
+      }
+    },
+
+    startTimer: function() {
+      this.timeInterval = setInterval(() => {
+        this.time.seconds += 1
+        eventBus.$emit('time', this.time)
+      if(this.time.seconds === 60){
+        this.time.minutes += 1
+        this.time.seconds = 0
+      }
+      if(this.time.minutes === 60){
+        this.time.hours += 1
+        this.time.minutes = 0
+      }
+      }, 1000)
+      },
+
+    moveCounter: function(){
+      this.moves += 1
+      eventBus.$emit('moves', this.moves)
+      if(this.moves === 1){
+          this.startTimer();
+      }
+    },
+
+    resetGame: async function(){
+      this.cards.forEach(card => card.flipped = false)
+      this.moves = 0
+      this.time = {
+        seconds: 0,
+        minutes: 0,
+        hours: 0,
+        }
+      clearInterval(this.timeInterval)
+      const delay = milliseconds => new Promise(res => setTimeout(res, milliseconds))
+      this.waiting = true
+      await delay(800)
+      this.waiting = false
+      this.shuffle(this.cards)
     }
-}
-
-
-
-    // var second = 0, minute = 0; hour = 0;
-    // var timer = document.querySelector(".timer");
-    // var interval;
-    // function startTimer(){
-    // interval = setInterval(function(){
-    //     timer.innerHTML = minute+"mins "+second+"secs";
-    //     second++;
-    //     if(second == 60){
-    //         minute++;
-    //         second=0;
-    //     }
-    //     if(minute == 60){
-    //         hour++;
-    //         minute = 0;
-    //     }
-    // },1000);
-  },
+  }
 }
 
 </script>
@@ -215,5 +217,9 @@ export default {
   -ms-transform: rotateY(180deg);
   transform: rotateY(180deg);
   }
+
+.reset {
+  cursor: pointer;
+}
 
 </style>
