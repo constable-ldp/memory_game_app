@@ -3,7 +3,7 @@
       <h2>Cards</h2>
       <div class="grid">
         <div v-for="(card, index) in this.cards" :key="index">
-          <button :class="{ 'flipped': card.flipped }" @click="flip(card)">
+          <button :disabled="card.flipped || waiting" :class="{ 'flipped': card.flipped }" @click="move(card)">
             <div class="on-top">
               <img class="pic" :src="require(`@/assets/imgs/${card.img}`)">
               <img class="codeclan" src="../assets/default.png">
@@ -26,7 +26,9 @@ export default {
       images: [
         'alex.png', 'dani.png', 'jael.png', 'kamil.png', 
         'pete.png', 'piotr.png', 'stuart.png', 'tim.png'
-        ]
+        ],
+      selectedCard: null,
+      waiting: false
     }
   },
   mounted() {
@@ -39,6 +41,7 @@ export default {
     this.assignIds()
     eventBus.$emit('fetch-cards', this.cards)
   },
+
   methods: {
     // fetchImages: function(){
     //   CardService.getImages()
@@ -50,7 +53,7 @@ export default {
         let cardObj = {
           'id': i,
           'img': this.images[i],
-          'matching_id': i+this.images.length,
+          'matchingId': i+this.images.length,
           'matched': false,
           'flipped': false
         }
@@ -60,7 +63,7 @@ export default {
         let cardObj = {
           'id': j,
           'img': this.images[j-  this.images.length],
-          'matching_id': j-this.images.length,
+          'matchingId': j-this.images.length,
           'matched': false,
           'flipped': false
         }
@@ -75,7 +78,54 @@ export default {
       else {
         card.flipped = true
       }
-    }
+    },
+
+    move: async function(card) {
+      this.flip(card)
+      if (!this.selectedCard){
+        this.selectedCard = card
+      }
+      else {
+        if (card.matchingId === this.selectedCard.id) {
+          card.matched = true
+          this.cards.filter(card => card.id === this.selectedCard.id).forEach(card => card.matched = true)
+        }
+        else {
+          const delay = milliseconds => new Promise(res => setTimeout(res, milliseconds));
+          this.waiting = true
+          await delay(800);
+          this.waiting = false
+          this.flip(card)
+          this.cards.filter(card => card.id === this.selectedCard.id)
+          .forEach(card => {
+            this.waiting = true
+            delay(800)
+            this.waiting = false
+            this.flip(card)
+            })
+        }
+        this.selectedCard = null
+      }   
+    },
+
+
+
+    // var second = 0, minute = 0; hour = 0;
+    // var timer = document.querySelector(".timer");
+    // var interval;
+    // function startTimer(){
+    // interval = setInterval(function(){
+    //     timer.innerHTML = minute+"mins "+second+"secs";
+    //     second++;
+    //     if(second == 60){
+    //         minute++;
+    //         second=0;
+    //     }
+    //     if(minute == 60){
+    //         hour++;
+    //         minute = 0;
+    //     }
+    // },1000);
   },
 }
 
@@ -95,11 +145,11 @@ button {
 .grid {
   display: grid;
   grid: repeat(4, 160px) / auto-flow 115px;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .on-top{
-  position:relative;
+  position: relative;
 
 }
 
@@ -118,8 +168,8 @@ button {
   -ms-transform-style: preserve-3d;
   transition: 0.8s;
   transform-style: preserve-3d;
-  height: 140px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   position:absolute;
   top:0;
   left:0;
