@@ -4,7 +4,7 @@
         <b-modal ref="player-modal">
           <div v-if="players">
               <label for="players">Select Player: </label>
-              <select @change="selectPlayer" v-model="player.name" name="players" id="players">
+              <select @change="selectPlayer(); closeModal();" v-model="player.name" name="players" id="players">
                 <player v-for="(player, index) in players" :key="index" :player="player"/>
                 
               </select>
