@@ -41,10 +41,11 @@ export default {
       moves: 0
     }
   },
-   mounted() {
-    this.shuffle(this.cards)
-    eventBus.$emit('time', this.time)
-    eventBus.$emit('moves', this.moves)
+
+  async mounted() {
+    await eventBus.$emit('time', this.time)
+    await eventBus.$emit('moves', this.moves)
+    this.resetGame()
 
   },
 
@@ -119,6 +120,9 @@ export default {
     },
 
     resetGame: async function(){
+      eventBus.$emit('time', this.time)
+      eventBus.$emit('moves', this.moves)
+      this.selectedCard = null
       this.cards.forEach(card => card.flipped = false)
       this.moves = 0
       this.time = {
