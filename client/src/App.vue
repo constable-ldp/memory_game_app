@@ -1,19 +1,26 @@
 <template>
   <div id="app">
 
+    <player-selected :selected-player="selectedPlayer"/>
     <player-list :players="players" :selected-player="selectedPlayer"/>
+    <player-new/>
   </div>
 </template>
 
 <script>
 import PlayerList from '@/components/PlayerList.vue';
 import PlayerService from '@/services/PlayerService.js';
+import PlayerSelected from '@/components/PlayerSelected.vue';
+import PlayerNew from '@/components/PlayerNew.vue';
+
 import {eventBus} from '@/main.js';
 
 export default {
   name: 'App',
   components: {
-    'player-list': PlayerList
+    'player-list': PlayerList,
+    'player-selected': PlayerSelected,
+    'player-new': PlayerNew
   },
   data() {
     return {
