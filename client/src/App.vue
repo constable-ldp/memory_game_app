@@ -1,57 +1,65 @@
 <template>
   <div id="app">
-    <player-list :players="players"/>
-    <cards />
+    <cards/>
+    <player-selected :selected-player="selectedPlayer"/>
+    <player-list :players="players" :selected-player="selectedPlayer"/>
+    <player-new :players="players"/>
   </div>
 </template>
 
 <script>
 import PlayerList from '@/components/PlayerList.vue';
 import PlayerService from '@/services/PlayerService.js';
-import {eventBus} from '@/main.js';
-
+import PlayerSelected from '@/components/PlayerSelected.vue';
+import PlayerNew from '@/components/PlayerNew.vue';
 import Cards from './components/Cards.vue';
+import {eventBus} from '@/main.js';
 
 
 export default {
   name: 'App',
   components: {
     'player-list': PlayerList,
-    'cards': Cards
+    'cards': Cards,
+    'player-selected': PlayerSelected,
+    'player-new': PlayerNew
   },
   data() {
     return {
-      // cards: [],
       players: [],
       selectedPlayer: null
     };
   },
-  // created() {
-  //   this.fetchCards()
-  // },
+
 
   mounted() {
     
     this.fetchPlayers();
-
-    eventBus.$on('submit-player', (player) => {
-      this.selectedPlayer = player
-      PlayerService.addPlayer(player)
-      .then(banana => this.players.push(banana))
-    });
-
-    
-    
+    this.submitPlayer();
+    this.selectPlayer();
   },
 
   methods: {
+
     fetchPlayers() {
       PlayerService.getPlayers()
       .then(players => this.players = players);
     },
 
-    // fetchCards() {
-    //   eventBus.$on('fetch-cards', (cards) => this.cards = cards)}    
+    submitPlayer() {
+      eventBus.$on('submit-player', (player) => {
+      this.selectedPlayer = player
+      PlayerService.addPlayer(player)
+      .then(banana => this.players.push(banana))
+    });
+
+    },
+
+    selectPlayer() {
+      eventBus.$on('select-player', (player) => {
+        this.selectedPlayer = player
+      });
+    }
   }
 }
 </script>

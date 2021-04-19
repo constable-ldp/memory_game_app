@@ -1,11 +1,10 @@
 <template>
    
-        <option value="player.name">{{player.name}}</option>
+        <option :value="player.name">{{player.name}}</option>
     
 </template>
 
 <script>
-import {eventBus} from '../main.js';
 
 export default {
     name: 'player',
