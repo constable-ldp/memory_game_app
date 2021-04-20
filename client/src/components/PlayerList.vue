@@ -1,12 +1,12 @@
 <template>
   <section>
-        <b-button @click="showModal">Select Player</b-button>
-        <b-modal ref="player-modal">
+        <b-button v-if="!selectedPlayer" @click="showModal">Select Player</b-button>
+        <b-button v-else @click="showModal">Change Player</b-button>
+        <b-modal ref="player-modal" hide-footer title="Select Player">
           <div v-if="players">
-              <label for="players">Select Player: </label>
+              <label for="players"></label>
               <select @change="selectPlayer(); closeModal();" v-model="player.name" name="players" id="players">
                 <player v-for="(player, index) in players" :key="index" :player="player"/>
-                
               </select>
             </div>
         </b-modal>
@@ -30,8 +30,6 @@ export default {
     return {
       player: {
       name: '', 
-      time: 0,
-      moves: 0
       }      
     };
   },

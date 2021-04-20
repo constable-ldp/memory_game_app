@@ -1,11 +1,7 @@
 <template>
   <section>
-      <h2>Player</h2>
-      <div v-if="selectedPlayer">
-        <h3>{{selectedPlayer.name}}</h3>
-        <h4>Time: {{selectedPlayer.time}}</h4>
-        <h4>Moves: {{selectedPlayer.moves}}</h4>
-      </div>
+      <h3 v-if="selectedPlayer">{{selectedPlayer.player.name}}</h3>
+      <h3 v-else>Guest</h3>
   </section>
 </template>
 

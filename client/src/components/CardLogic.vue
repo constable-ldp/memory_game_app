@@ -1,6 +1,10 @@
 <template>
   <section>
-    <b-icon @click="resetGame" class="reset" icon="arrow-clockwise" font-scale="3"></b-icon>
+    <div class="reset-button"> 
+      <button :disabled="waiting" @click="resetGame">
+        <b-icon class="reset-icon" icon="arrow-clockwise" font-scale="3"></b-icon>
+       </button>
+    </div>
     <div class="grid">
       <div class="grid-card" v-for="(card, index) in this.cards" :key="index">
         <button :disabled="card.flipped || waiting" :class="{ 'flipped': card.flipped }" @click="move(card)">
@@ -121,16 +125,16 @@ export default {
     },
 
     resetGame: async function(){
-      eventBus.$emit('time', this.time)
-      eventBus.$emit('moves', this.moves)
-      this.selectedCard = null
       this.cards.forEach(card => card.flipped = false)
+      this.selectedCard = null
       this.moves = 0
       this.time = {
         seconds: 0,
         minutes: 0,
         hours: 0,
         }
+      eventBus.$emit('time', this.time)
+      eventBus.$emit('moves', this.moves)
       clearInterval(this.timeInterval)
       const delay = milliseconds => new Promise(res => setTimeout(res, milliseconds))
       this.waiting = true
@@ -145,7 +149,7 @@ export default {
 
 <style>
 
-.grid-card button {
+button {
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;

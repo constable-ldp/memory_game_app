@@ -75,7 +75,9 @@ export default {
         eventBus.$emit('player-error', true)
         return;
           } else {
-            this.selectedPlayer = payload;
+            const player = {name: payload}
+            console.log(player)
+            this.selectedPlayer = {player :  payload};
             PlayerService.addPlayer(payload)
             .then(banana => this.players.push(banana))
             eventBus.$emit('player-error', false)

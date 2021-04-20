@@ -1,9 +1,8 @@
 <template>
   <section>
     <b-button @click="showModal">New Player</b-button>
-        <b-modal ref="player-modal">
+        <b-modal ref="player-modal" title="New Player" hide-footer>
           <form v-on:submit.prevent="handleSubmit">
-            <h3>New Player</h3>
               <label for="name">Player Name:</label>
               <input type="text" id="name" name="name" v-model="name" required/>
               <input ref="close" type="submit" name="submit" value="Save" @click="closeModal"/>
@@ -23,7 +22,7 @@ export default {
   props: ['players'],
   data() {
     return {
-      name: ''
+        name: ''
     };
   },
 
