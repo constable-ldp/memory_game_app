@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-button @click="showModal">New Player</b-button>
+    <b-button :disabled="$props.time.seconds !== 0" @click="showModal">New Player</b-button>
         <b-modal ref="player-modal" title="New Player" hide-footer>
           <form v-on:submit.prevent="handleSubmit">
               <label for="name">Player Name:</label>
@@ -19,10 +19,12 @@ import {eventBus} from '@/main.js'
 
 export default {
   name: 'player-new',
-  props: ['players'],
+  props: ['players', 'time'],
   data() {
     return {
-        name: ''
+        name: '',
+        duration: 0,
+        moves: 0
     };
   },
 

@@ -1,7 +1,7 @@
 <template>
   <section>
-        <b-button v-if="!selectedPlayer" @click="showModal">Select Player</b-button>
-        <b-button v-else @click="showModal">Change Player</b-button>
+        <b-button :disabled="$props.time.seconds !== 0" v-if="!selectedPlayer" @click="showModal">Select Player</b-button>
+        <b-button :disabled="$props.time.seconds !== 0" v-else @click="showModal">Change Player</b-button>
         <b-modal ref="player-modal" hide-footer title="Select Player">
           <div v-if="players">
               <label for="players"></label>
@@ -24,7 +24,7 @@ export default {
     'player': Player
   },
 
-  props: ['players', 'selected-player'],
+  props: ['players', 'selected-player', 'time'],
 
   data() {
     return {

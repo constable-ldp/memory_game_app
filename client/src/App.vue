@@ -3,8 +3,8 @@
     <stats :time="time" :moves="moves"/>
     <assign-cards/>
     <player-selected :selected-player="selectedPlayer"/>
-    <player-list :players="players" :selected-player="selectedPlayer"/>
-    <player-new :players="players"/>
+    <player-list :players="players" :selected-player="selectedPlayer" :time="time"/>
+    <player-new :players="players" :time="time"/>
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
       players: [],
       selectedPlayer: null,
       time: {
-        seonds:0,
+        seconds:0,
         minutes:0,
         hours:0
         },
@@ -75,11 +75,9 @@ export default {
         eventBus.$emit('player-error', true)
         return;
           } else {
-            const player = {name: payload}
-            console.log(player)
             this.selectedPlayer = {player :  payload};
             PlayerService.addPlayer(payload)
-            .then(banana => this.players.push(banana))
+            .then(response => this.players.push(response))
             eventBus.$emit('player-error', false)
         }
       })

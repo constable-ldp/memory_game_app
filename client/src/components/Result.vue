@@ -1,11 +1,13 @@
 <template>
   <section>
-      <h2>Result</h2>
+      <h2>Result {{finalResults.duration.seconds}}</h2>
   </section>
 </template>
 
 <script>
 export default {
+  name: 'result',
+  props: ['finalResults']
 
 }
 </script>
