@@ -17,7 +17,7 @@ export default {
         .then(res => res.json())
     },
 
-    updateBooking(player) {
+    updatePlayer(player) {
         return fetch(baseURL + player._id, {
           method: 'PUT',
           body: JSON.stringify(player),

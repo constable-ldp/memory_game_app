@@ -5,41 +5,19 @@ db.dropDatabase();
 db.players.insertMany([
     {
         "name": "Vitor Amandio",
-        // "duration": 0,
-        // "moves": 10,
-        "finalResults":[ {
-          duration, 
-          move
-        }]
+        "games": []
       },
     {
         "name": "Calum Gunn",
-        "game": { 
-          "duration": {
-            "hours": 0,
-            "minutes": 1,
-            "seconds": 24
-          },
-          "moves": 26
-        },
-        "game": { 
-          "duration": {
-            "hours": 0,
-            "minutes": 1,
-            "seconds": 24
-          },
-          "moves": 26
-        },
+        "games": []
 
       },
     {
         "name": "Luke Constable",
-        "duration": 0,
-        "moves": 8
+        "games": []
       },
     {
         "name": "Michael McColl",
-        "duration": 0,
-        "moves": 9
+        "games": []
       }
 ]);

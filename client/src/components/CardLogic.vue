@@ -49,7 +49,8 @@ export default {
       timeInterval: null,
       moves: 0,
       finalResults: null,
-      images: []
+      images: [],
+      duration: 0
     }
   },
 
@@ -69,7 +70,7 @@ export default {
       if (this.result === this.cards.length){
         this.$refs['result-show'].show()
         this.finalResults = {
-          duration: this.time, 
+          duration: this.duration, 
           moves: this.moves
           }
         clearInterval(this.timeInterval)
@@ -135,6 +136,7 @@ export default {
     startTimer: function() {
       this.timeInterval = setInterval(() => {
         this.time.seconds += 1
+        this.duration += 1
         eventBus.$emit('time', this.time)
       if(this.time.seconds === 60){
         this.time.minutes += 1
@@ -177,20 +179,20 @@ export default {
       this.shuffle(this.cards)
     },
 
-    resultShow: function(){
-      if (this.result === this.cards.length){
-        this.$refs['result-show'].show()
-        this.finalResults = {
-          duration: this.time, 
-          moves: this.moves
-          }
-        clearInterval(this.timeInterval)
-        eventBus.$emit('final-results', this.finalResults)
-      }
-      else {
-        this.$refs['result-show'].hide()
-      }
-    },
+    // resultShow: function(){
+    //   if (this.result === this.cards.length){
+    //     this.$refs['result-show'].show()
+    //     this.finalResults = {
+    //       duration: this.time, 
+    //       moves: this.moves
+    //       }
+    //     clearInterval(this.timeInterval)
+    //     eventBus.$emit('final-results', this.finalResults)
+    //   }
+    //   else {
+    //     this.$refs['result-show'].hide()
+    //   }
+    // },
     win: function() {
       this.cards.forEach(card => {
         card.flipped = true
