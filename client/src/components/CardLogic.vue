@@ -77,14 +77,13 @@ export default {
       }
       else {
         this.$refs['result-show'].hide()
-        console.log('result changed')
-      }
+        
     }
+  }
   },
 
-   mounted() {
+  mounted() {
     this.resetGame()
-    this.cards.forEach(card => this.images.push(card.img))
   },
 
   methods: {
@@ -187,10 +186,6 @@ export default {
           }
         clearInterval(this.timeInterval)
         eventBus.$emit('final-results', this.finalResults)
-        // let audio = ('../assets/audio/tada.mp3')
-        // function playAudio() {
-        //   audio.play()
-        // }
       }
       else {
         this.$refs['result-show'].hide()

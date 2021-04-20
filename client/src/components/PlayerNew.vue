@@ -23,8 +23,7 @@ export default {
   data() {
     return {
         name: '',
-        duration: 0,
-        moves: 0
+        games: []
     };
   },
 
