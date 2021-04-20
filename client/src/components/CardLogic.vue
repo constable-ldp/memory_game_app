@@ -1,5 +1,6 @@
 <template>
   <section>
+    <button @click="win()">Win!</button>
     <div class="reset-button"> 
       <button :disabled="waiting" @click="resetGame">
         <b-icon class="reset-icon" icon="arrow-clockwise" font-scale="3"></b-icon>
@@ -15,8 +16,9 @@
         </button>
       </div>
     </div>
-    <b-modal ref='result-show' >
-      <results :finalResults="finalResults"/>
+    <b-modal ref='result-show' hide-footer hide-header>
+      <div class="confetti" v-for="n in 20" :key='n'></div>
+      <results :finalResults="finalResults" :images="images"/>
     </b-modal>
   </section>
 </template>
@@ -46,7 +48,8 @@ export default {
         },
       timeInterval: null,
       moves: 0,
-      finalResults: null
+      finalResults: null,
+      images: []
     }
   },
 
@@ -81,6 +84,7 @@ export default {
 
    mounted() {
     this.resetGame()
+    this.cards.forEach(card => this.images.push(card.img))
   },
 
   methods: {
@@ -183,10 +187,20 @@ export default {
           }
         clearInterval(this.timeInterval)
         eventBus.$emit('final-results', this.finalResults)
+        // let audio = ('../assets/audio/tada.mp3')
+        // function playAudio() {
+        //   audio.play()
+        // }
       }
       else {
         this.$refs['result-show'].hide()
       }
+    },
+    win: function() {
+      this.cards.forEach(card => {
+        card.flipped = true
+        card.matched = true
+      })
     }
   }
 }
@@ -275,6 +289,119 @@ button {
 
 .reset {
   cursor: pointer;
+}
+
+@keyframes confetti {
+  0% {
+    transform: rotateZ(15deg) rotateY(0deg) translate(0, 0);
+  }
+  20% {
+    transform: rotateZ(5deg) rotateY(180deg) translate(-5vw, 20vh);
+  }
+  40% {
+    transform: rotateZ(15deg) rotateY(360deg) translate(5vw, 60vh);
+  }
+  60% {
+    transform: rotateZ(5deg) rotateY(540deg) translate(-10vw, 80vh);
+  }
+  80% {
+    transform: rotateZ(15deg) rotateY(720deg) translate(-10vw, 100vh);
+  }
+  100% {
+    transform: rotateZ(5deg) rotateY(900deg) translate(15vw, 130vh);
+  }
+}
+.confetti {
+  width: 100px;
+  height: 100px;
+  background-image: url('../assets/default.png');
+  background-size: contain;
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  animation: confetti 5s linear 2s infinite;
+  transform-origin: left top;
+  z-index: 1;
+}
+.confetti:nth-child(1) {
+  /* background-color: rgb(242, 215, 78); */
+  background-image: url('../assets/default.png');
+  background-size: contain;
+  top: -10%;
+  left: 10%;
+  animation-delay: 1s;
+}
+.confetti:nth-child(2n) {
+  /* background-color: rgb(77, 182, 243); */
+  background-image: url('../assets/imgs/alex.png');
+  background-size: contain;
+  top: -10%;
+  left: 20%;
+  animation-delay: 5s;
+}
+.confetti:nth-child(3n + 3) {
+  /* background-color: rgba(40, 246, 47, 1); */
+  background-image: url('../assets/imgs/dani.png');
+  background-size: contain;
+  top: -10%;
+  left: 30%;
+  animation-delay: 3s;
+}
+.confetti:nth-child(4n + 4) {
+  /* background-color: rgb(213, 78, 242); */
+  background-image: url('../assets/imgs/jael.png');
+  background-size: contain;
+  top: -10%;
+  left: 40%;
+  animation-delay: 2.5s;
+}
+.confetti:nth-child(5n + 5) {
+  /* background-color: rgb(77, 182, 243); */
+  background-image: url('../assets/imgs/kamil.png');
+  background-size: contain;
+  top: -10%;
+  left: 50%;
+  animation-delay: 4s;
+}
+.confetti:nth-child(6n + 6) {
+  /* background-color: rgba(40, 246, 47, 1); */
+  background-image: url('../assets/imgs/pete.png');
+  background-size: contain;
+  top: -10%;
+  left: 60%;
+  animation-delay: 6s;
+}
+.confetti:nth-child(7n + 7) {
+  /* background-color: rgb(242, 215, 78); */
+  background-image: url('../assets/imgs/piotr.png');
+  background-size: contain;
+  top: -10%;
+  left: 70%;
+  animation-delay: 1.5s;
+}
+.confetti:nth-child(8n + 8) {
+  /* background-color: rgb(77, 182, 243); */
+  background-image: url('../assets/imgs/stuart.png');
+  background-size: contain;
+  top: -10%;
+  left: 80%;
+  animation-delay: 2s;
+}
+.confetti:nth-child(9n + 9) {
+  /* background-color: rgba(40, 246, 47, 1); */
+  background-image: url('../assets/imgs/tim.png');
+  background-size: contain;
+  top: -10%;
+  left: 90%;
+  animation-delay: 3.5s;
+}
+.confetti:nth-child(10n + 10) {
+  /* background-color: rgb(213, 78, 242); */
+  background-image: url('../assets/default.png');
+  background-size: contain;
+  top: -10%;
+  left: 100%;
+  animation-delay: 2.5s;
 }
 
 </style>
