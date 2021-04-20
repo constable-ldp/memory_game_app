@@ -1,6 +1,11 @@
 const baseURL = 'http://localhost:3000/api/players/';
 
 export default {
+    getPlayer(player) {
+        return fetch(baseURL + player._id)
+        .then(res => res.json())
+    },
+
     getPlayers() {
         return fetch(baseURL)
         .then(res => res.json());

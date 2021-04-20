@@ -169,6 +169,7 @@ export default {
         minutes: 0,
         hours: 0,
         }
+      this.duration = 0
       eventBus.$emit('time', this.time)
       eventBus.$emit('moves', this.moves)
       clearInterval(this.timeInterval)

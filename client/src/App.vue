@@ -5,6 +5,7 @@
     <player-selected :selected-player="selectedPlayer"/>
     <player-list :players="players" :selected-player="selectedPlayer" :time="time"/>
     <player-new :players="players" :time="time"/>
+    <button @click="updatePlayer">Update</button>
   </div>
 </template>
 
@@ -83,6 +84,23 @@ export default {
       })
     
   },
+
+  updatePlayer() {
+    if (!this.selectedPlayer) {
+      eventBus.$on('final-results', (payload) => { 
+        console.log(payload)
+        const player = PlayerService.getPlayer(this.selectedPlayer.player)
+        console.log(player)
+        player.games.push(payload)
+        PlayerService.updatePlayer(player)
+      })
+    }
+  },
+
+
+    
+
+
   getTime() {
     eventBus.$on('time', (payload) => this.time = payload)
   },
