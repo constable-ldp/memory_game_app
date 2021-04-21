@@ -223,7 +223,7 @@ button {
   /* 20vw */
   justify-content: center;
   background-color: rgb(1,71,246);
-
+  /* @media (max-width: 530px) {... */
 }
 
 .grid-card {
