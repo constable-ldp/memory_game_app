@@ -317,7 +317,7 @@ button {
   background-image: url('../assets/default.png');
   background-size: contain;
   position: absolute;
-  top: -10%;
+  top: 6%;
   left: 50%;
   animation: confetti 5s linear 2s infinite;
   transform-origin: left top;
@@ -327,7 +327,7 @@ button {
   /* background-color: rgb(242, 215, 78); */
   background-image: url('../assets/default.png');
   background-size: contain;
-  top: -10%;
+  top: 6%;
   left: 10%;
   animation-delay: 1s;
 }
@@ -335,7 +335,7 @@ button {
   /* background-color: rgb(77, 182, 243); */
   background-image: url('../assets/imgs/alex.png');
   background-size: contain;
-  top: -10%;
+  top: 6%;
   left: 20%;
   animation-delay: 5s;
 }
@@ -343,7 +343,7 @@ button {
   /* background-color: rgba(40, 246, 47, 1); */
   background-image: url('../assets/imgs/dani.png');
   background-size: contain;
-  top: -10%;
+  top: 6%;
   left: 30%;
   animation-delay: 3s;
 }
@@ -351,7 +351,7 @@ button {
   /* background-color: rgb(213, 78, 242); */
   background-image: url('../assets/imgs/jael.png');
   background-size: contain;
-  top: -10%;
+  top: 6%;
   left: 40%;
   animation-delay: 2.5s;
 }
@@ -359,7 +359,7 @@ button {
   /* background-color: rgb(77, 182, 243); */
   background-image: url('../assets/imgs/kamil.png');
   background-size: contain;
-  top: -10%;
+  top: 6%;
   left: 50%;
   animation-delay: 4s;
 }
@@ -367,7 +367,7 @@ button {
   /* background-color: rgba(40, 246, 47, 1); */
   background-image: url('../assets/imgs/pete.png');
   background-size: contain;
-  top: -10%;
+  top: 6%;
   left: 60%;
   animation-delay: 6s;
 }
@@ -375,7 +375,7 @@ button {
   /* background-color: rgb(242, 215, 78); */
   background-image: url('../assets/imgs/piotr.png');
   background-size: contain;
-  top: -10%;
+  top: 6%;
   left: 70%;
   animation-delay: 1.5s;
 }
@@ -383,25 +383,25 @@ button {
   /* background-color: rgb(77, 182, 243); */
   background-image: url('../assets/imgs/stuart.png');
   background-size: contain;
-  top: -10%;
+  top: 6%;
   left: 80%;
   animation-delay: 2s;
 }
-.confetti:nth-child(9n + 9) {
-  /* background-color: rgba(40, 246, 47, 1); */
+/* /* .confetti:nth-child(9n + 9) {
+  background-color: rgba(40, 246, 47, 1);
   background-image: url('../assets/imgs/tim.png');
   background-size: contain;
   top: -10%;
   left: 90%;
   animation-delay: 3.5s;
-}
+} */
 .confetti:nth-child(10n + 10) {
   /* background-color: rgb(213, 78, 242); */
   background-image: url('../assets/default.png');
   background-size: contain;
-  top: -10%;
-  left: 100%;
-  animation-delay: 2.5s;
-}
+  top: 6%;
+  left: 0%;
+  animation-delay: 1.5s;
+} 
 
 </style>
