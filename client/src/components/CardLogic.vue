@@ -1,7 +1,7 @@
 <template>
   <section>
     <button @click="win()">Win!</button>
-    <div class="reset-button"> 
+    <div> 
       <button :disabled="waiting" @click="resetGame">
         <b-icon class="reset-icon" icon="arrow-clockwise" font-scale="3"></b-icon>
       </button>
@@ -222,6 +222,7 @@ button {
   grid: repeat(4, 140px) / auto-flow 140px;
   /* 20vw */
   justify-content: center;
+  background-color:rgb(203, 252, 252);
 }
 
 .grid-card {
@@ -229,6 +230,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color:rgb(90, 138, 90);
 }
 
 .on-top{

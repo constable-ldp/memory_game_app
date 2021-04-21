@@ -1,10 +1,11 @@
 <template>
-  <div id="app">
-    <stats :time="time" :moves="moves"/>
-    <assign-cards/>
-    <player-selected :selected-player="selectedPlayer"/>
-    <player-list :players="players" :selected-player="selectedPlayer" :time="time"/>
-    <player-new :players="players" :time="time"/>
+  <div class="gameView" id="app">
+    <header class="header">PAIRS</header>
+    <assign-cards class="gridArea"/>
+    <player-selected class="playerSelected" :selected-player="selectedPlayer"/>
+    <player-list class="playerList" :players="players" :selected-player="selectedPlayer" :time="time"/>
+    <player-new class="newPlayer" :players="players" :time="time"/>
+    <stats class="stats" :time="time" :moves="moves"/>
   </div>
 </template>
 
@@ -110,4 +111,53 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.playerList{
+  grid-area: playerList;
+}
+
+.newPlayer {
+  grid-area: newPlayer;
+}
+
+.playerSelected {
+  grid-area: playerSelected;
+}
+
+.stats {
+  grid-area: stats;
+}
+
+.gridArea {
+  grid-area: gridArea;
+}
+
+.header {
+  grid-area: header;
+  font-size: xxx-large;
+  color: darkblue;
+  background-color: darkgray;
+  border-radius:  70% ;
+}
+
+.space {
+  grid-area: space;
+}
+
+.gameView {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    ". . header header . ."
+    ". . playerList stats . ."
+    ". . newPlayer stats . ."
+    ". . playerSelected playerSelected . ."
+    ". gridArea gridArea gridArea gridArea ." 
+    ". gridArea gridArea gridArea gridArea ." 
+    ". gridArea gridArea gridArea gridArea ." 
+    ". gridArea gridArea gridArea gridArea ." 
+
+}
+
 </style>
