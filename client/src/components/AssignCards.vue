@@ -16,17 +16,32 @@ export default {
                 'alex.png', 'dani.png', 'jael.png', 'kamil.png', 
                 'pete.png', 'piotr.png', 'stuart.png', 'tim.png'
             ],
-            cards: []
+            // images: ["https://cdn2.thecatapi.com/images/bss.jpg", "https://cdn2.thecatapi.com/images/bss.jpg"],
+            cards: [],
+            image: null
         }
     },
 
+    created() {
+      // this.addImages(8, 'https://api.thecatapi.com/v1/images/search')
+      // this.assignIds()
+    },
     mounted() {
-        this.assignIds()
+      this.addImages(8, 'https://api.thecatapi.com/v1/images/search')
+      // this.assignIds()
+      
     },
 
     methods: {
+
+      // https://api.thecatapi.com/v1/images/search
+      // https://api.thedogapi.com/v1/images/search
+
+      
+
     
-    assignIds: function() {
+      assignIds: function() {
+      // this.addImages(8, 'https://api.thecatapi.com/v1/images/search')
       for (let i=0; i < this.images.length; i++) {
         let cardObj = {
           'id': i,
@@ -48,6 +63,18 @@ export default {
         this.cards.push(cardObj)
       }
     },
+
+    addImages: function(number, url) {
+        let imagePromises = []
+        for (let i=0; i < number; i++) {
+          imagePromises.push(fetch(url).then((response) => response.json()))
+        }
+        Promise.all(imagePromises)
+        .then((data) => {
+          this.images = data.map(imageObject => imageObject[0].url)
+          this.assignIds()
+      })
+    }
   }
 }
 </script>
