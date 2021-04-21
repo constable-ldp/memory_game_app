@@ -10,7 +10,6 @@ db.players.insertMany([
     {
         "name": "Calum Gunn",
         "games": []
-
       },
     {
         "name": "Luke Constable",

@@ -5,7 +5,6 @@
     <player-selected :selected-player="selectedPlayer"/>
     <player-list :players="players" :selected-player="selectedPlayer" :time="time"/>
     <player-new :players="players" :time="time"/>
-    <button @click="updatePlayer">Update</button>
   </div>
 </template>
 
@@ -17,8 +16,6 @@ import PlayerNew from '@/components/PlayerNew.vue';
 import AssignCards from './components/AssignCards.vue';
 import Stats from './components/Stats.vue';
 import {eventBus} from '@/main.js';
-
-
 
 export default {
   name: 'App',
@@ -49,6 +46,12 @@ export default {
     this.selectPlayer();
     this.getTime();
     this.getMoves();
+    eventBus.$on('final-results', (payload) => { 
+      const player = this.players.filter(player => player.name === this.selectedPlayer.player.name)
+      const playerId = player[0]
+      playerId.games.push(payload)
+      PlayerService.updatePlayer(playerId)
+    })
   },
 
   methods: {
@@ -82,24 +85,7 @@ export default {
             eventBus.$emit('player-error', false)
         }
       })
-    
   },
-
-  updatePlayer() {
-    if (!this.selectedPlayer) {
-      eventBus.$on('final-results', (payload) => { 
-        console.log(payload)
-        const player = PlayerService.getPlayer(this.selectedPlayer.player)
-        console.log(player)
-        player.games.push(payload)
-        PlayerService.updatePlayer(player)
-      })
-    }
-  },
-
-
-    
-
 
   getTime() {
     eventBus.$on('time', (payload) => this.time = payload)
