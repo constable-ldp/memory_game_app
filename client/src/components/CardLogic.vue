@@ -10,7 +10,7 @@
       <div class="grid-card" v-for="(card, index) in this.cards" :key="index">
         <button :disabled="card.flipped || waiting" :class="{ 'flipped': card.flipped }" @click="move(card)">
           <div class="on-top">
-            <img class="pic" :src="require(`@/assets/imgs/${card.img}`)">
+            <img class="pic" :src="card.img">
             <img class="codeclan" src="../assets/default.png">
           </div>
         </button>
