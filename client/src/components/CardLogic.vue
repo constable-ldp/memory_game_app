@@ -222,7 +222,8 @@ button {
   grid: repeat(4, 140px) / auto-flow 140px;
   /* 20vw */
   justify-content: center;
-  background-color:rgb(203, 252, 252);
+  background-color: rgb(1,71,246);
+
 }
 
 .grid-card {
@@ -230,7 +231,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color:rgb(90, 138, 90);
+  background-color:rgb(209, 242, 248);
 }
 
 .on-top{
@@ -404,4 +405,12 @@ button {
   animation-delay: 1.5s;
 } 
 
+.reset-icon {
+  background: rgb(1,71,246);
+  background: radial-gradient(circle, rgba(166,241,255,1) 0%, rgb(246, 1, 1) 100%);
+  border-color: white;
+  border-radius: 50%;
+  padding: 10px;
+  margin: 10px;
+}
 </style>
