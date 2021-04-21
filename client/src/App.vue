@@ -1,10 +1,13 @@
 <template>
-  <div id="app">
-    <stats :time="time" :moves="moves"/>
-    <assign-cards/>
-    <player-selected :selected-player="selectedPlayer"/>
-    <player-list :players="players" :selected-player="selectedPlayer" :time="time"/>
-    <player-new :players="players" :time="time"/>
+  <div class="gameView" id="app">
+    <header class="header">MEMORY</header>
+    <assign-cards class="gridArea"/>
+    
+      <player-selected class="playerSelected" :selected-player="selectedPlayer"/>
+      <player-list class="playerList" :players="players" :selected-player="selectedPlayer" :time="time"/>
+      <player-new class="newPlayer" :players="players" :time="time"/>
+      <stats class="stats" :time="time" :moves="moves"/>
+    
   </div>
 </template>
 
@@ -108,6 +111,82 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
+.playerList{
+  grid-area: playerList;
+  background-color: white;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.newPlayer {
+  grid-area: newPlayer;
+  background-color: white;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.playerSelected {
+  grid-area: playerSelected;
+  background-color: white;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.stats {
+  grid-area: stats;
+  background-color: white;
+  margin: 4px;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: justify;
+}
+
+.gridArea {
+  grid-area: gridArea;
+  border-radius: 8px;
+  background: rgb(1,71,246);
+  /* background: radial-gradient(circle, rgba(166,241,255,1) 0%, rgba(1,71,246,1) 100%); */
+  border-color: white;
+  border-radius: 50%;
+}
+
+.header {
+  grid-area: header;
+  font-size: xxx-large;
+  color: white;
+  background-image: url(./assets/brain.jpg);
+  background-size: contain;
+  background-position: center;
+  border-radius:  70% ;
+  margin: 10px 150px;
+  line-height: 3;
+}
+
+.space {
+  grid-area: space;
+}
+
+.gameView {
+  display: grid;
+  background-color: rgb(1,71,246);
+  grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header header header header header"
+    ". . playerList stats . ."
+    ". . newPlayer stats . ."
+    ". . playerSelected playerSelected . ."
+    ". gridArea gridArea gridArea gridArea ." 
+    ". gridArea gridArea gridArea gridArea ." 
+    ". gridArea gridArea gridArea gridArea ." 
+    ". gridArea gridArea gridArea gridArea ." 
+}
+
+
+
 </style>

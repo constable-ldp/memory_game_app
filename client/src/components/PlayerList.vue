@@ -52,6 +52,11 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.btn {
+  padding: 20px;
+  background-color: white;
+  color: black;
+  border: none;
+}
 </style>
