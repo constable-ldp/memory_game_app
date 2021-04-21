@@ -64,7 +64,15 @@ export default {
 <style scoped>
 .btn {
   background-color: transparent;
-  padding: 20px;
+  padding: 5px 20px;
+  color: black;
+  border: none;
+  font-size: 1.5em;
+}
+
+.btn-secondary.disabled{
+  padding: 5px 20px;
+  background-color: white;
   color: black;
   border: none;
 }

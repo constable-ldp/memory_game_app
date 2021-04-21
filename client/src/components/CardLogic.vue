@@ -222,7 +222,7 @@ button {
   grid: repeat(4, 140px) / auto-flow 140px;
   /* 20vw */
   justify-content: center;
-  background-color: rgb(1,71,246);
+  background-color: black;
   /* @media (max-width: 530px) {... */
 }
 
@@ -231,7 +231,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color:rgb(209, 242, 248);
+  background-color:black;
 }
 
 .on-top{

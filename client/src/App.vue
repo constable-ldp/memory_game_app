@@ -2,12 +2,12 @@
   <div class="gameView" id="app">
     <header class="header">MEMORY</header>
     <assign-cards class="gridArea"/>
-    
-      <player-selected class="playerSelected" :selected-player="selectedPlayer"/>
-      <player-list class="playerList" :players="players" :selected-player="selectedPlayer" :time="time"/>
-      <player-new class="newPlayer" :players="players" :time="time"/>
-      <stats class="stats" :time="time" :moves="moves"/>
-    
+    <player-selected class="playerSelected" :selected-player="selectedPlayer"/>
+    <player-list class="playerList" :players="players" :selected-player="selectedPlayer" :time="time"/>
+    <player-new class="newPlayer" :players="players" :time="time"/>
+    <start-game class="startGame"/>
+    <stats class="stats" :time="time" :moves="moves"/>
+    <leaderboard class="leaderboard"/>
   </div>
 </template>
 
@@ -16,8 +16,10 @@ import PlayerList from '@/components/PlayerList.vue';
 import PlayerService from '@/services/PlayerService.js';
 import PlayerSelected from '@/components/PlayerSelected.vue';
 import PlayerNew from '@/components/PlayerNew.vue';
+import StartGame from './components/StartGame.vue';
 import AssignCards from './components/AssignCards.vue';
 import Stats from './components/Stats.vue';
+import Leaderboard from './components/Leaderboard.vue';
 import {eventBus} from '@/main.js';
 
 export default {
@@ -26,8 +28,10 @@ export default {
     'player-list': PlayerList,
     'player-selected': PlayerSelected,
     'player-new': PlayerNew,
+    'start-game': StartGame,
     'stats': Stats,
-    'assign-cards': AssignCards
+    'assign-cards': AssignCards,
+    'leaderboard': Leaderboard
   },
   data() {
     return {
@@ -119,6 +123,7 @@ export default {
   margin: 4px;
   padding: 4px;
   border-radius: 12px;
+  border:2px solid red;
 }
 
 .newPlayer {
@@ -127,6 +132,7 @@ export default {
   margin: 4px;
   padding: 4px;
   border-radius: 12px;
+  border:2px solid red;
 }
 
 .playerSelected {
@@ -149,7 +155,7 @@ export default {
 .gridArea {
   grid-area: gridArea;
   border-radius: 8px;
-  background: rgb(1,71,246);
+  background: black;
   /* background: radial-gradient(circle, rgba(166,241,255,1) 0%, rgba(1,71,246,1) 100%); */
   border-color: white;
   border-radius: 50%;
@@ -167,24 +173,38 @@ export default {
   line-height: 3;
 }
 
-.space {
-  grid-area: space;
+.startGame {
+  grid-area: startGame;
+  background-color: white;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  border:2px solid red;
+}
+
+.leaderboard {
+  grid-area: leaderboard;
+  background-color: white;
+  margin: 16px;
+  padding: 4px;
+  border-radius: 12px;
 }
 
 .gameView {
   display: grid;
-  background-color: rgb(1,71,246);
-  grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr;
+  background-color: black;
+  grid-template-columns: 1fr 3fr 3fr 3fr 3fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
     "header header header header header header"
     ". . playerList stats . ."
     ". . newPlayer stats . ."
-    ". . playerSelected playerSelected . ."
+    ". . startGame playerSelected . ."
     ". gridArea gridArea gridArea gridArea ." 
     ". gridArea gridArea gridArea gridArea ." 
     ". gridArea gridArea gridArea gridArea ." 
-    ". gridArea gridArea gridArea gridArea ." 
+    ". gridArea gridArea gridArea gridArea ."
+    ". . leaderboard leaderboard . ." 
 }
 
 
