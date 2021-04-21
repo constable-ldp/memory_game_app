@@ -47,10 +47,12 @@ export default {
     this.getTime();
     this.getMoves();
     eventBus.$on('final-results', (payload) => { 
+      if (this.selectedPlayer) {
       const player = this.players.filter(player => player.name === this.selectedPlayer.player.name)
       const playerId = player[0]
       playerId.games.push(payload)
       PlayerService.updatePlayer(playerId)
+      }
     })
   },
 
