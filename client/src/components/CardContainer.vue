@@ -1,7 +1,7 @@
 <template>
   <section>
     <!-- <button @click="win()">Win!</button> -->
-    <div> 
+    <div class="reset-button"> 
       <button :disabled="waiting" @click="resetGame">
         <b-icon class="reset-icon" icon="arrow-clockwise" font-scale="3"></b-icon>
       </button>
@@ -222,7 +222,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color:lightblue;
+  background-color: black;
 }
 
 .on-top{

@@ -24,7 +24,7 @@ export default {
             url: null,
             cat: "https://api.thecatapi.com/v1/images/search",
             options: [
-              { value: null, text: 'Change Card Image' },
+              { value: null, text: 'Change Card Image', disabled: true},
               {
               "value": "https://api.thecatapi.com/v1/images/search",
               "text": "Cats",
