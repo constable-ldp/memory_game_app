@@ -10,6 +10,7 @@
       <div class="grid-card" v-for="(card, index) in this.cards" :key="index">
         <button :disabled="card.flipped || waiting" :class="{ 'flipped': card.flipped }" @click="move(card)">
           <div class="on-top">
+            <img src="">
             <img class="pic" :src="card.img">
             <img class="codeclan" src="../assets/default.png">
           </div>
@@ -229,7 +230,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color:black;
+  background-color:lightblue;
 }
 
 .on-top{

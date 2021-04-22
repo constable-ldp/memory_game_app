@@ -21,7 +21,7 @@ export default {
                 'pete.png', 'piotr.png', 'stuart.png', 'tim.png'
             ],
             cards: [],
-            image: null
+            url: null
         }
     },
 
@@ -30,7 +30,7 @@ export default {
       // this.assignIds()
     },
     mounted() {
-      this.addImages(8, 'https://api.thecatapi.com/v1/images/search')
+      this.addImages(this.url)
       // this.assignIds()
       
     },
@@ -44,7 +44,6 @@ export default {
 
     
       assignIds: function() {
-      // this.addImages(8, 'https://api.thecatapi.com/v1/images/search')
       for (let i=0; i < this.images.length; i++) {
         let cardObj = {
           'id': i,
@@ -67,16 +66,21 @@ export default {
       }
     },
 
-    addImages: function(number, url) {
+    addImages: function(url) {
+      if (url === null) {
+        this.assignIds()
+      }
+      else {
         let imagePromises = []
-        for (let i=0; i < number; i++) {
+        for (let i=0; i < 8; i++) {
           imagePromises.push(fetch(url).then((response) => response.json()))
         }
         Promise.all(imagePromises)
         .then((data) => {
           this.images = data.map(imageObject => imageObject[0].url)
           this.assignIds()
-      })
+        })
+      }
     }
   }
 }
