@@ -16,7 +16,7 @@ import PlayerList from '@/components/PlayerList.vue';
 import PlayerService from '@/services/PlayerService.js';
 import PlayerSelected from '@/components/PlayerSelected.vue';
 import PlayerNew from '@/components/PlayerNew.vue';
-import AssignCards from './components/AssignCards.vue';
+import StartGame from './components/StartGame.vue';
 import Stats from './components/Stats.vue';
 import {eventBus} from '@/main.js';
 
@@ -27,7 +27,7 @@ export default {
     'player-selected': PlayerSelected,
     'player-new': PlayerNew,
     'stats': Stats,
-    'assign-cards': AssignCards
+    'assign-cards': StartGame
   },
   data() {
     return {

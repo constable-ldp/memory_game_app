@@ -26,13 +26,13 @@
 <script>
 
 import Result from './Result.vue';
-import AssignCards from './AssignCards.vue';
+import StartGame from './StartGame.vue';
 import {eventBus} from '@/main.js';
 
 export default {
   name: 'card-logic',
   components: { 
-    'assign-cards': AssignCards,
+    'assign-cards': StartGame,
     'results': Result,
     },
   props: ['assignedCards'],
@@ -82,11 +82,9 @@ export default {
     }
   }
   },
-
-  mounted() {
+  created() {
     this.resetGame()
   },
-
   methods: {
     flip: function(card) {
       if (card.flipped) {
