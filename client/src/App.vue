@@ -1,11 +1,10 @@
 <template>
   <div class="gameView" id="app">
     <header class="header">MEMORY</header>
-    <assign-cards class="gridArea"/>
+    <start-game class="gridArea"/>
     <player-selected class="playerSelected" :selected-player="selectedPlayer"/>
     <player-list class="playerList" :players="players" :selected-player="selectedPlayer" :time="time"/>
     <player-new class="newPlayer" :players="players" :time="time"/>
-    <start-game class="startGame"/>
     <stats class="stats" :time="time" :moves="moves"/>
     <leaderboard class="leaderboard"/>
   </div>
@@ -17,7 +16,6 @@ import PlayerService from '@/services/PlayerService.js';
 import PlayerSelected from '@/components/PlayerSelected.vue';
 import PlayerNew from '@/components/PlayerNew.vue';
 import StartGame from './components/StartGame.vue';
-import AssignCards from './components/AssignCards.vue';
 import Stats from './components/Stats.vue';
 import Leaderboard from './components/Leaderboard.vue';
 import {eventBus} from '@/main.js';
@@ -30,8 +28,8 @@ export default {
     'player-new': PlayerNew,
     'start-game': StartGame,
     'stats': Stats,
-    'assign-cards': AssignCards,
-    'leaderboard': Leaderboard
+    'leaderboard': Leaderboard,
+    'start-game': StartGame
   },
   data() {
     return {
