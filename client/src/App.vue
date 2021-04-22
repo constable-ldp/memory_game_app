@@ -1,6 +1,6 @@
 <template>
   <div class="gameView" id="app">
-    <header class="header">MEMORY</header>
+    <header class="header"><b>MEMORY</b></header>
     <start-game class="gridArea"/>
     <player-selected class="playerSelected" :selected-player="selectedPlayer"/>
     <player-list class="playerList" :players="players" :selected-player="selectedPlayer" :time="time"/>
@@ -132,6 +132,14 @@ export default {
   border-radius: 12px;
   border:2px solid red;
 }
+.leaderboard {
+  grid-area: leaderboard;
+  background-color: white;
+  margin: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  
+}
 
 .playerSelected {
   grid-area: playerSelected;
@@ -154,6 +162,7 @@ export default {
   grid-area: gridArea;
   border-radius: 8px;
   background: black;
+
   /* background: radial-gradient(circle, rgba(166,241,255,1) 0%, rgba(1,71,246,1) 100%); */
   border-color: white;
   border-radius: 50%;
@@ -197,7 +206,7 @@ export default {
     "header header header header header header"
     ". . playerList stats . ."
     ". . newPlayer stats . ."
-    ". . startGame playerSelected . ."
+    ". . playerSelected playerSelected . ."
     ". gridArea gridArea gridArea gridArea ." 
     ". gridArea gridArea gridArea gridArea ." 
     ". gridArea gridArea gridArea gridArea ." 

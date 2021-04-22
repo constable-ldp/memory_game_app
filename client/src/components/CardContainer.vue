@@ -1,6 +1,6 @@
 <template>
   <section>
-    <button @click="win()">Win!</button>
+    <!-- <button @click="win()">Win!</button> -->
     <div> 
       <button :disabled="waiting" @click="resetGame">
         <b-icon class="reset-icon" icon="arrow-clockwise" font-scale="3"></b-icon>
@@ -10,8 +10,8 @@
       <div class="grid-card" v-for="(card, index) in this.cards" :key="index">
         <button :disabled="card.flipped || waiting" :class="{ 'flipped': card.flipped }" @click="move(card)">
           <div class="on-top">
-            <img src="">
-            <img class="pic" :src="card.img">
+            <img v-if="imageUrl='classic'" class="pic" :src="require(`@/assets/imgs/${card.img}`)"/>
+            <img v-else class="pic" :src="card.img">
             <img class="codeclan" src="../assets/default.png">
           </div>
         </button>
@@ -36,9 +36,10 @@ export default {
     'assign-cards': StartGame,
     'results': Result,
     },
-  props: ['assignedCards'],
+  props: ['assignedCards', 'url'],
   data() {
     return {
+      imageUrl: this.$props.url,
       cards: this.$props.assignedCards,
       selectedCard: null,
       waiting: false,
@@ -51,7 +52,8 @@ export default {
       moves: 0,
       finalResults: null,
       images: [],
-      duration: 0
+      duration: 0,
+      // url: this.$props.url
     }
   },
 
@@ -157,6 +159,8 @@ export default {
     },
 
     resetGame: async function(){
+      this.imageUrl = this.$props.url
+
       this.cards.forEach(card => {
         card.flipped = false
         card.matched = false
@@ -176,23 +180,10 @@ export default {
       this.waiting = true
       await delay(800)
       this.waiting = false
+      this.cards = this.$props.assignedCards
       this.shuffle(this.cards)
     },
 
-    // resultShow: function(){
-    //   if (this.result === this.cards.length){
-    //     this.$refs['result-show'].show()
-    //     this.finalResults = {
-    //       duration: this.time, 
-    //       moves: this.moves
-    //       }
-    //     clearInterval(this.timeInterval)
-    //     eventBus.$emit('final-results', this.finalResults)
-    //   }
-    //   else {
-    //     this.$refs['result-show'].hide()
-    //   }
-    // },
     win: function() {
       this.cards.forEach(card => {
         card.flipped = true
@@ -214,6 +205,7 @@ button {
     overflow: hidden;
     outline: none;
     margin: 0px auto;
+    
 }
 
 .grid {

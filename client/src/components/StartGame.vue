@@ -1,7 +1,7 @@
 <template>
   <section>
-      <h3>Change Card Deck</h3>
-      <card-container :assignedCards="cards"/>
+      <b-form-select style="width: 50%" @change="changeImages(url)" v-model="url" :options="options" class="mt-3"></b-form-select>
+      <card-container :url="url" :assignedCards="cards"/>
   </section>
 </template>
 
@@ -21,7 +21,25 @@ export default {
                 'pete.png', 'piotr.png', 'stuart.png', 'tim.png'
             ],
             cards: [],
-            url: null
+            url: null,
+            cat: "https://api.thecatapi.com/v1/images/search",
+            options: [
+              { value: null, text: 'Change Card Image' },
+              {
+              "value": "https://api.thecatapi.com/v1/images/search",
+              "text": "Cats",
+              },
+              {
+              "value": "https://api.thedogapi.com/v1/images/search",
+              "text": "Dogs",
+              },
+              {
+              "value": "classic",
+              "text": "Classic",
+              }
+
+            ]
+            
         }
     },
 
@@ -31,18 +49,9 @@ export default {
     },
     mounted() {
       this.addImages(this.url)
-      // this.assignIds()
-      
     },
 
     methods: {
-
-      // https://api.thecatapi.com/v1/images/search
-      // https://api.thedogapi.com/v1/images/search
-
-      
-
-    
       assignIds: function() {
       for (let i=0; i < this.images.length; i++) {
         let cardObj = {
@@ -68,6 +77,28 @@ export default {
 
     addImages: function(url) {
       if (url === null) {
+        this.assignIds()
+      }
+      else {
+        let imagePromises = []
+        for (let i=0; i < 8; i++) {
+          imagePromises.push(fetch(url).then((response) => response.json()))
+        }
+        Promise.all(imagePromises)
+        .then((data) => {
+          this.images = data.map(imageObject => imageObject[0].url)
+          this.assignIds()
+        })
+      }
+    },
+
+    changeImages: function(url) {
+      this.cards = []
+      if (url === 'classic') {
+        this.images = [
+          'alex.png', 'dani.png', 'jael.png', 'kamil.png', 
+          'pete.png', 'piotr.png', 'stuart.png', 'tim.png'
+            ]
         this.assignIds()
       }
       else {

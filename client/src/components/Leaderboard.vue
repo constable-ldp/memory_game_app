@@ -1,5 +1,7 @@
 <template>
   <section>
+    <b-button @click="showModal">Leaderboard</b-button>
+    <b-modal ref="leaderboard">    
     <h2>Leaderboard</h2>
     <hr>
       <table>
@@ -8,17 +10,35 @@
               <th>Best Time</th>
               <th>Least Moves</th>
           </tr>
-          <!-- <booking v-for="(booking, index) in bookings" :key="index" :booking="booking"/> -->
       </table>
+      </b-modal>
   </section>
 </template>
 
 <script>
 export default {
-
+  name: 'leaderboard-modal',
+  methods: {
+    showModal() {
+      this.$refs['leaderboard'].show()
+    },
+  }
 }
 </script>
 
-<style>
+<style scoped>
+.btn {
+  background-color: transparent;
+  padding: 5px 20px;
+  color: black;
+  border: none;
+  font-size: 1.5em;
+}
 
+.btn-secondary.disabled{
+  padding: 5px 20px;
+  background-color: white;
+  color: black;
+  border: none;
+}
 </style>
