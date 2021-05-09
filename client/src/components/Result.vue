@@ -13,13 +13,3 @@ export default {
 
 }
 </script>
-
-
-
-<style>
-/* <confetti :class="[{'confetti': playerWon}]" v-for="n in 20" :key='n'></confetti> */
-
-
-
-
-</style>

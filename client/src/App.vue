@@ -1,6 +1,6 @@
 <template>
   <div class="gameView" id="app">
-    <header class="header"><b>MEMORY</b></header>
+    <!-- <header class="header"><b>MEMORY</b></header> -->
     <start-game class="gridArea"/>
     <player-selected class="playerSelected" :selected-player="selectedPlayer"/>
     <player-list class="playerList" :players="players" :selected-player="selectedPlayer" :time="time"/>
@@ -112,7 +112,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #whi;
 }
 
 .playerList{
@@ -203,9 +203,8 @@ export default {
   grid-template-columns: 1fr 3fr 3fr 3fr 3fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
-    "header header header header header header"
-    ". . playerList stats . ."
     ". . newPlayer stats . ."
+    ". . playerList stats . ."
     ". . playerSelected playerSelected . ."
     ". gridArea gridArea gridArea gridArea ." 
     ". gridArea gridArea gridArea gridArea ." 
